@@ -11,9 +11,11 @@ Note: This project is experimental, so the API is subject to change.
 composer.json
 ```js
     "require-dev": {
-        "phpmethodreplacer/phpmethodreplacer": "dev-master"
+        "phpmethodreplacer/phpmethodreplacer": "VERSION"
     }
 ```
+
+See about the latest version -> https://packagist.org/packages/phpmethodreplacer/phpmethodreplacer
 
 ## Example
 
