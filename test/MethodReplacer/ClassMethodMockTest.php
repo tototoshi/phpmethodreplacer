@@ -11,13 +11,13 @@ class ClassMethodMockTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, B::b());
     }
 
-    public function expectOverridedBehavior()
+    public function expectreplacedBehavior()
     {
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 3;
         });
-        $mock->override('MethodReplacer\B', 'b', function() {
+        $mock->replace('MethodReplacer\B', 'b', function() {
             return 4;
         });
         $this->assertEquals(3, A::a());
@@ -25,80 +25,80 @@ class ClassMethodMockTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, C::bar());
     }
 
-    public function overrideTwice()
+    public function replaceTwice()
     {
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 3;
         });
         $this->assertEquals(3, A::a());
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 4;
         });
         $this->assertEquals(4, A::a());
     }
 
-    public function test_overrideOnlyInMethodScope()
+    public function test_replaceOnlyInMethodScope()
     {
         $this->expectDefaultBehavior();
-        $this->expectOverridedBehavior();
+        $this->expectreplacedBehavior();
         $this->expectDefaultBehavior();
     }
 
-    public function test_canOverride()
+    public function test_canreplace()
     {
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 3;
         });
         $this->assertEquals(3, A::a());
     }
 
-    public function test_canOverrideMethodWithOneArg()
+    public function test_canreplaceMethodWithOneArg()
     {
         $this->assertEquals(1, A::withOneArg(1));
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'withOneArg', function($arg) {
+        $mock->replace('MethodReplacer\A', 'withOneArg', function($arg) {
             return $arg * 2;
         });
         $this->assertEquals(2, A::withOneArg(1));
     }
 
-    public function test_canOverrideMethodWithMultiArgs()
+    public function test_canreplaceMethodWithMultiArgs()
     {
         $this->assertEquals(0, A::withMultiArgs(1, 2));
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'withMultiArgs', function($arg1, $arg2) {
+        $mock->replace('MethodReplacer\A', 'withMultiArgs', function($arg1, $arg2) {
             return $arg1 + $arg2;
         });
         $this->assertEquals(3, A::withMultiArgs(1, 2));
     }
 
-    public function test_canOverrideMultiMethods()
+    public function test_canreplaceMultiMethods()
     {
         $this->assertEquals(1, A::a());
         $this->assertEquals(2, A::a2());
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 'a';
         });
-        $mock->override('MethodReplacer\A', 'a2', function() {
+        $mock->replace('MethodReplacer\A', 'a2', function() {
             return 'a2';
         });
         $this->assertEquals('a', A::a());
         $this->assertEquals('a2', A::a2());
     }
 
-    public function test_canOverrideTwice()
+    public function test_canreplaceTwice()
     {
-        $this->overrideTwice();
+        $this->replaceTwice();
         $this->expectDefaultBehavior();
     }
 
-    public function test_canCallOverridedMethodMultipleTimes()
+    public function test_canCallreplacedMethodMultipleTimes()
     {
         $mock = new ClassMethodReplacementGuard();
-        $mock->override('MethodReplacer\A', 'a', function() {
+        $mock->replace('MethodReplacer\A', 'a', function() {
             return 3;
         });
         $this->assertEquals(3, A::a());

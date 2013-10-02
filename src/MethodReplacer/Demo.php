@@ -16,7 +16,7 @@ class Hige
     public static function mige()
     {
         $mock = new \MethodReplacer\ClassMethodReplacementGuard();
-        $mock->override('hoge', 'moge', function () {
+        $mock->replace('hoge', 'moge', function () {
             echo 'mige' . PHP_EOL;
         });
 
