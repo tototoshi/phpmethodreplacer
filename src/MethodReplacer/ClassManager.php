@@ -1,17 +1,29 @@
 <?php
 namespace MethodReplacer;
 
-
+/**
+ * Class ClassManager
+ *
+ * @package MethodReplacer
+ */
 class ClassManager {
 
     private static $instance = null;
 
     private $runkit_managed_classes = array();
 
+    /*
+     * This class is a singleton.
+     */
     private function __construct()
     {
     }
 
+    /**
+     * Get the instance of this class
+     *
+     * @return ClassManager
+     */
     public static function getInstance()
     {
         if (self::$instance == null) {
@@ -23,6 +35,12 @@ class ClassManager {
         }
     }
 
+    /**
+     * Get MethodReplaceableClass that is already managed by this class.
+     *
+     * @param MethodReplaceableClass $class_name
+     * @return MethodReplaceableClass
+     */
     public function getManagedClassOrNewOne($class_name)
     {
         if (isset($this->runkit_managed_classes[$class_name])) {
@@ -32,6 +50,13 @@ class ClassManager {
         }
     }
 
+    /**
+     * Register the pseudo implementation
+     *
+     * @param string $class_name
+     * @param string $method_name
+     * @param callable $method_implementation
+     */
     public function register($class_name, $method_name, $method_implementation)
     {
         $this->runkit_managed_classes[$class_name] =
@@ -40,6 +65,12 @@ class ClassManager {
                 ->addMethod($method_name, $method_implementation);
     }
 
+    /**
+     * Register the pseudo implementation
+     *
+     * @param string $class_name
+     * @param string $method_name
+     */
     public function deregister($class_name, $method_name)
     {
         $this

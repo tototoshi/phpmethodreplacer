@@ -1,8 +1,18 @@
 <?php
 namespace MethodReplacer;
 
+/**
+ * Class MethodInvoker
+ * @package MethodReplacer
+ */
 class MethodInvoker {
 
+    /**
+     * Invoke psuedo method that has been registered to ClassManager
+     *
+     * @return mixed
+     * @throws MethodInvocationException
+     */
     public static function invoke()
     {
         $args = func_get_args();

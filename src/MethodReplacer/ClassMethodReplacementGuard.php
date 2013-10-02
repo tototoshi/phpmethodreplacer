@@ -1,6 +1,11 @@
 <?php
 namespace MethodReplacer;
 
+/**
+ * Class ClassMethodReplacementGuard
+ *
+ * @package MethodReplacer
+ */
 class ClassMethodReplacementGuard
 {
     private $class_and_methods;
