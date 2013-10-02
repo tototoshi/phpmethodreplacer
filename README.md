@@ -1,4 +1,5 @@
 # PHP Method Replacer
+[![Build Status](https://travis-ci.org/tototoshi/phpmethodhelper.png)](https://travis-ci.org/tototoshi/phpmethodhelper)
 
 Note: This project is experimental, so the API is subject to change.
 
