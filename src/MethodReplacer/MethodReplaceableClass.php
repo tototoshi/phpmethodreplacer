@@ -1,14 +1,19 @@
 <?php
 namespace MethodReplacer;
 
+/**
+ * Class MethodReplaceableClass
+ * @package MethodReplacer
+ */
 class MethodReplaceableClass {
 
     private $class_name;
 
     private $methods = array();
 
-    const PREFIX_ORIGINAL_METHOD = '__';
-
+    /**
+     * @param string $class_name The name of target class
+     */
     public function __construct($class_name)
     {
         $this->class_name = $class_name;
@@ -25,7 +30,8 @@ class MethodReplaceableClass {
     }
 
     private function getStashedMethodName($method_name) {
-        return self::PREFIX_ORIGINAL_METHOD . $method_name;
+        /* Like python :) */
+        return '_' . $this->class_name . '__' . $method_name;
     }
 
     private function stashedMethodExists($method_name)
@@ -33,10 +39,21 @@ class MethodReplaceableClass {
         return method_exists($this->class_name, $this->getStashedMethodName($method_name));
     }
 
+    /**
+     * Added the information of the pseudo implementation
+     *
+     * @param string $method_name
+     * @param callable $func anonymous function
+     * @return $this
+     */
     public function addMethod($method_name, $func) {
         $this->methods[$method_name] = $func;
 
-        /* 元のメソッドを __ Prefix 付きで退避させる */
+        /**
+         * Stash the original implementation temporarily as a method of different name.
+         * Need to check the existence of stashed method not to write psuedo implementation
+         * twice and forget the original implementation
+         */
         if (!$this->stashedMethodExists($method_name)) {
             runkit_method_rename($this->class_name, $method_name, $this->getStashedMethodName($method_name));
         } else {
@@ -48,11 +65,24 @@ class MethodReplaceableClass {
         return $this;
     }
 
+    /**
+     * Get the pseudo implementation of the method
+     *
+     * @param string $method_name
+     * @return callable
+     */
     public function getMethod($method_name)
     {
         return $this->methods[$method_name];
     }
 
+    /**
+     *
+     * Remove the information about the pseudo implementation of the method
+     *
+     * @param string $method_name
+     * @return $this
+     */
     public function removeMethod($method_name)
     {
         if ($this->stashedMethodExists($method_name)) {
