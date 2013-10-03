@@ -1,5 +1,6 @@
 <?php
 namespace MethodReplacer;
+use MethodReplacer\Exception\MethodInvocationException;
 
 /**
  * Class MethodInvoker
@@ -8,26 +9,19 @@ namespace MethodReplacer;
 class MethodInvoker {
 
     /**
-     * Invoke psuedo method that has been registered to ClassManager
+     * Invoke pseudo method that has been registered to ClassManager
      *
+     * @param string $class_name
+     * @param string $method_name
      * @return mixed
-     * @throws MethodInvocationException
+     * @throws Exception\MethodInvocationException
      */
-    public static function invoke()
+    public static function invoke($class_name, $method_name)
     {
         $args = func_get_args();
-
-        if (count($args) < 2) {
-            throw new MethodInvocationException('Class and method are not specified.');
-        }
-
-        $class_name = $args[0];
-        $method_name = $args[1];
         $method_args = array_slice($args, 2);
 
-        $class_manager = ClassManager::getInstance();
-
-        $managed_class = $class_manager->getManagedClassOrNewOne($class_name);
+        $managed_class = ClassManager::getInstance()->getManagedClassOrNewOne($class_name);
 
         $fake_method = $managed_class->getMethod($method_name);
 
@@ -36,7 +30,6 @@ class MethodInvoker {
         }
 
         return call_user_func_array($fake_method, $method_args);
-
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 namespace MethodReplacer;
+use MethodReplacer\Exception\ClassNotFoundException;
+use MethodReplacer\Exception\MethodNotFoundException;
 
 /**
  * Class MethodReplaceableClass
@@ -16,6 +18,10 @@ class MethodReplaceableClass {
      */
     public function __construct($class_name)
     {
+        if (!class_exists($class_name)) {
+            throw new ClassNotFoundException("No such a class found ({$class_name})");
+        }
+
         $this->class_name = $class_name;
     }
 
@@ -47,6 +53,10 @@ class MethodReplaceableClass {
      * @return $this
      */
     public function addMethod($method_name, $func) {
+        if (!method_exists($this->class_name, $method_name)) {
+            throw new MethodNotFoundException('{$this->class_name} has not such a method ({$method_name})');
+        }
+
         $this->methods[$method_name] = $func;
 
         /**
@@ -73,7 +83,12 @@ class MethodReplaceableClass {
      */
     public function getMethod($method_name)
     {
-        return $this->methods[$method_name];
+        if (isset($this->methods[$method_name])) {
+            return $this->methods[$method_name];
+        } else {
+            return null;
+        }
+
     }
 
     /**

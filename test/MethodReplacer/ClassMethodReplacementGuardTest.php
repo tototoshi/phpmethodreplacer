@@ -2,7 +2,7 @@
 namespace MethodReplacer;
 
 
-class ClassMethodMockTest extends \PHPUnit_Framework_TestCase
+class ClassMethodReplacementGuardTest extends \PHPUnit_Framework_TestCase
 {
 
     public function expectDefaultBehavior()

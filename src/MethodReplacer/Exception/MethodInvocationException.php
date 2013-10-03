@@ -1,5 +1,5 @@
 <?php
-namespace MethodReplacer;
+namespace MethodReplacer\Exception;
 
 /**
  * Class MethodInvocationException
