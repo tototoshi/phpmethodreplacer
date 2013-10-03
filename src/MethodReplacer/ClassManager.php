@@ -38,7 +38,7 @@ class ClassManager {
     /**
      * Get MethodReplaceableClass that is already managed by this class.
      *
-     * @param MethodReplaceableClass $class_name
+     * @param string $class_name
      * @return MethodReplaceableClass
      */
     public function getManagedClassOrNewOne($class_name)
@@ -57,7 +57,7 @@ class ClassManager {
      * @param string $method_name
      * @param callable $method_implementation
      */
-    public function register($class_name, $method_name, $method_implementation)
+    public function register($class_name, $method_name, \Closure $method_implementation)
     {
         $this->runkit_managed_classes[$class_name] =
             $this

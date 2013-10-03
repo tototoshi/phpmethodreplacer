@@ -30,7 +30,7 @@ class ClassMethodReplacementGuard
      * @param string $method_name
      * @param callable $callable
      */
-    public function override($class_name, $method_name, $callable)
+    public function override($class_name, $method_name, \Closure $callable)
     {
         $this->replace($class_name, $method_name, $callable);
     }
@@ -42,7 +42,7 @@ class ClassMethodReplacementGuard
      * @param string $method_name
      * @param callable $callable
      */
-    public function replace($class_name, $method_name, $callable)
+    public function replace($class_name, $method_name, \Closure $callable)
     {
         ClassManager::getInstance()->register($class_name, $method_name, $callable);
         $this->class_and_methods[] = array($class_name, $method_name);

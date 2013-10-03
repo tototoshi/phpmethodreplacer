@@ -52,7 +52,7 @@ class MethodReplaceableClass {
      * @param callable $func anonymous function
      * @return $this
      */
-    public function addMethod($method_name, $func) {
+    public function addMethod($method_name, \Closure $func) {
         if (!method_exists($this->class_name, $method_name)) {
             throw new MethodNotFoundException('{$this->class_name} has not such a method ({$method_name})');
         }
