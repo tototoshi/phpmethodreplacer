@@ -54,7 +54,7 @@ class MethodReplaceableClass {
      */
     public function addMethod($method_name, \Closure $func) {
         if (!method_exists($this->class_name, $method_name)) {
-            throw new MethodNotFoundException('{$this->class_name} has not such a method ({$method_name})');
+            throw new MethodNotFoundException("{$this->class_name} has not such a method ({$method_name})");
         }
 
         $this->methods[$method_name] = $func;
