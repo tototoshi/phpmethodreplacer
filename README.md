@@ -4,7 +4,7 @@ Note: This project is experimental, so the API is subject to change.
 
 
 ## Requirement
- - runkit
+ - runkit 1.03 (https://github.com/zenovich/runkit)
 
 ## Install
 
