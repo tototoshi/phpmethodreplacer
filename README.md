@@ -51,3 +51,14 @@ Hige::mige(); //=> mige
 Hoge::moge(); //=> moge
 
 ```
+
+
+## Dev
+
+### Running Test
+```
+$ wget http://getcomposer.org/composer.phar
+$ php composer.phar install
+$ ./vendor/bin/phpunit
+
+```
